@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">E_WeJob</string>
+    <string name="company_name">Company Name</string>
+    <string name="telephone">Telephone</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="full_name">Full Name</string>
+    <string name="experience_years">Experience Years</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="next">Next</string>
+    <string name="bacloria">bacloria</string>
+    <string name="certificate_type">Certificate Type</string>
+    <string name="job_title">Job Title</string>
+    <string name="salary">Salary</string>
+    <string name="required_experience_years">Required Experience Years</string>
+    <string name="add_job">Add Job</string>
+    <string name="name">Name</string>
+    <string name="e_mailadress">E-MailAdress</string>
+    <string name="logo">logo</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="required">Required</string>
+    <string name="pass_not_match">Password Not Matching</string>
+    <string name="university">University</string>
+    <string name="master">Master</string>
+    <string name="phd">phD</string>
+    <string-array name="TypeOfRegisteration">
+        <item>Type Of Register</item>
+        <item>Company</item>
+        <item>Candidate</item>
+    </string-array>
+    <string-array name="degree">
+        <item>Required Education Level</item>
+        <item>Bacaloria</item>
+        <item>University</item>
+        <item>Master</item>
+        <item>PHD</item>
+    </string-array>
+</resources>
