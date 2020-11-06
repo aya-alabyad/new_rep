@@ -23,6 +23,14 @@
     <string name="university">University</string>
     <string name="master">Master</string>
     <string name="phd">phD</string>
+    <string name="err_email">Please Enter Correct Email</string>
+    <string name="err_phone">Please Enter Correct Phone</string>
+    <string name="required_education_level">Required Education Level</string>
+    <string name="err_pass">Please Enter 8 Characters at Least</string>
+    <string name="company_telephone">Company Telephone</string>
+    <string name="company_password">Company Password</string>
+    <string name="add_company">Add Company</string>
+    <string name="logout">Logout</string>
     <string-array name="TypeOfRegisteration">
         <item>Type Of Register</item>
         <item>Company</item>

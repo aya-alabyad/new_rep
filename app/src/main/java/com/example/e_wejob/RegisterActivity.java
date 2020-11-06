@@ -2,6 +2,8 @@ package com.example.e_wejob;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -75,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!validationMethod()) return;
-                Intent intent = new Intent(RegisterActivity.this, AddJobActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, JobGalleryActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,14 +97,30 @@ public class RegisterActivity extends AppCompatActivity {
         if (emailText.trim().equals("")) {
             valid = false;
             email.setError(getString(R.string.required));
+        } else {
+            Boolean res = isValidEmail(emailText);
+            if (!res) {
+                valid = false;
+                email.setError(getString(R.string.err_email));
+            }
         }
         if (telText.trim().equals("")) {
             valid = false;
             tel.setError(getString(R.string.required));
+        } else {
+            Boolean res = isValidPhone(telText);
+            if (!res) {
+                valid = false;
+                tel.setError(getString(R.string.err_phone));
+            }
         }
         if (passwordText.trim().equals("")) {
             valid = false;
             password.setError(getString(R.string.required));
+        }
+        if (passwordText.trim().length() < 8) {
+            valid = false;
+            password.setError(getString(R.string.err_pass));
         }
         if (confirmText.trim().equals("")) {
             valid = false;
@@ -131,5 +149,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         return valid;
 
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public static boolean isValidPhone(String target) {
+        if (target.length() != 10 || !target.startsWith("09")) {
+            return false;
+        } else {
+            return android.util.Patterns.PHONE.matcher(target).matches();
+        }
+//        return (!TextUtils.isEmpty(target) && Patterns.PHONE.matcher(target).matches());
     }
 }
