@@ -1,10 +1,10 @@
 package com.example.e_wejob;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,17 +20,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobGalleryActivity extends AppCompatActivity {
-
+public class JobsByYearsActivity extends AppCompatActivity {
     RecyclerView jobList;
     List<Job> jobs;
     String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/jobs";
     RequestQueue requestQueue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_gallery);
+        setContentView(R.layout.activity_jobs_by_years);
         jobList = findViewById(R.id.jobList);
 
         jobs = new ArrayList(1);
@@ -75,7 +73,7 @@ public class JobGalleryActivity extends AppCompatActivity {
                                 jobs.add(j);
                             }
 
-                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobGalleryActivity.this, jobs);
+                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobsByYearsActivity.this, jobs);
                             jobList.setAdapter(jobItemAdapter);
                         }
                         // Try and catch are included to handle any errors due to JSON
@@ -97,5 +95,6 @@ public class JobGalleryActivity extends AppCompatActivity {
         );
         // Adds the JSON array request "arrayreq" to the request queue
         requestQueue.add(jobsRequest);
+
     }
 }

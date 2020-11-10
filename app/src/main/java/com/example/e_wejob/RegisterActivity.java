@@ -21,14 +21,14 @@ public class RegisterActivity extends AppCompatActivity {
     EditText email, tel, password, confirm, fullName, cName;
     Spinner type;
     Button btnSignup;
-
+//variable to detect registeration type 0 no select ,1 for company ,2 for Candidate
     int registerType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        btnSignup = findViewById(R.id.btnSignUp);
+        btnSignup = findViewById(R.id.btnLogin);
 
         email = findViewById(R.id.email);
         tel = findViewById(R.id.tel);
@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-
+// validationMethod return true or false
     public boolean validationMethod() {
         boolean valid = true;
         String emailText, telText, passwordText, confirmText, cNameText, fullNameText;
@@ -93,7 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
         confirmText = confirm.getText().toString();
         cNameText = cName.getText().toString();
         fullNameText = fullName.getText().toString();
-
         if (emailText.trim().equals("")) {
             valid = false;
             email.setError(getString(R.string.required));

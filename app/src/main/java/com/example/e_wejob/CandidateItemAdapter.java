@@ -8,17 +8,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.e_wejob.models.Candidate;
+import com.example.e_wejob.models.Diploma;
 import com.example.e_wejob.models.Job;
 
 import java.util.List;
 
-public class JobItemAdapter extends RecyclerView.Adapter<JobItemAdapter.ViewHolder> {
+public class CandidateItemAdapter extends RecyclerView.Adapter<CandidateItemAdapter.ViewHolder> {
 
-    private List<Job> mData;
+    private List<Candidate> mData;
     private LayoutInflater mInflater;
 
     // data is passed into the constructor
-    JobItemAdapter(Context context, List<Job> data) {
+    CandidateItemAdapter(Context context, List<Candidate> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -26,19 +28,25 @@ public class JobItemAdapter extends RecyclerView.Adapter<JobItemAdapter.ViewHold
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.job_item, parent, false);
+        View view = mInflater.inflate(R.layout.candidate_item, parent, false);
         return new ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Job j = mData.get(position);
-        holder.jobTitle.setText(j.title);
-        holder.companyName.setText(j.companyId + "");
-        holder.requiredEducationLevel.setText(j.requiredEducationLevel);
-        holder.requiredExperienceYears.setText(j.requiredExperienceYears + "");
-        holder.salary.setText(j.salary);
+        Candidate c = mData.get(position);
+        holder.fullName.setText(c.full_name);
+        String diplomas = "";
+        for (int i = 0; i < c.diplomaList.size(); i++) {
+            Diploma d = c.diplomaList.get(i);
+            diplomas += d.diplomaType + " " + d.diplomaTitle + "\n";
+        }
+
+        holder.diploma.setText(diplomas);
+        holder.experienceYears.setText(c.experienceYears+"");
+        holder.phone.setText(c.phone);
+
     }
 
     // total number of rows
@@ -50,16 +58,14 @@ public class JobItemAdapter extends RecyclerView.Adapter<JobItemAdapter.ViewHold
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView jobTitle, companyName, requiredEducationLevel, requiredExperienceYears, salary;
+        TextView fullName, diploma, experienceYears, phone;
 
         ViewHolder(View itemView) {
             super(itemView);
-            jobTitle = itemView.findViewById(R.id.jobTitle);
-            companyName = itemView.findViewById(R.id.companyName);
-            requiredEducationLevel = itemView.findViewById(R.id.requiredEducationLevel);
-            requiredExperienceYears = itemView.findViewById(R.id.requiredExperienceYears);
-            salary = itemView.findViewById(R.id.salary);
-//            itemView.setOnClickListener(this);
+            fullName = itemView.findViewById(R.id.fullName);
+            diploma = itemView.findViewById(R.id.diploma);
+            experienceYears = itemView.findViewById(R.id.experienceYears);
+            phone = itemView.findViewById(R.id.phone);
         }
 
     }

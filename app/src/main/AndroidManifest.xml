@@ -11,19 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.E_WeJob">
-        <activity android:name=".AddCompanyActivity">
+        <activity android:name=".JobCandidatesActivity"></activity>
+        <activity android:name=".JobsByYearsActivity" />
+        <activity android:name=".CandidateMainActivity">
+
+            <!--
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".CompanyMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <activity android:name=".JobGalleryActivity">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".AddCompanyActivity">
 
             <!--
             <intent-filter>
@@ -33,15 +41,33 @@
             </intent-filter>
             -->
         </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".JobGalleryActivity">
+
+            <!--
+               <intent-filter>
+                   <action android:name="android.intent.action.MAIN" />
+
+                   <category android:name="android.intent.category.LAUNCHER" />
+               </intent-filter>
+            -->
+        </activity>
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-         <!--   <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
         </activity>
         <activity android:name=".AddJobActivity" />
         <activity android:name=".DiplomaActivity" />

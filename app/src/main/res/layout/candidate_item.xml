@@ -6,10 +6,10 @@
     android:padding="12dp">
 
     <TextView
-        android:id="@+id/jobTitle"
+        android:id="@+id/fullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/job_title"
+        android:text="@string/full_name"
         android:textColor="#29ca8e"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobTitle">
+        app:layout_constraintTop_toBottomOf="@+id/fullName">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,24 +34,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lblCompanyName"
+                    android:id="@+id/lblDiploma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/company_name"
+                    android:text="@string/diploma"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/companyName"
+                    android:id="@+id/diploma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/company_name"
+                    android:text="@string/diploma"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/lblCompanyName"
+                    app:layout_constraintStart_toEndOf="@+id/lblDiploma"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -61,25 +61,25 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lblRequiredEducationLevel"
+                    android:id="@+id/lblExperienceYears"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/required_education_level"
+                    android:text="@string/experience_years"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/requiredEducationLevel"
+                    android:id="@+id/experienceYears"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/required_education_level"
+                    android:text="@string/experience_years"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/lblRequiredEducationLevel"
+                    app:layout_constraintStart_toEndOf="@+id/lblExperienceYears"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,54 +89,29 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/lblRequiredExperienceYears"
+                    android:id="@+id/lblPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/required_experience_years"
+                    android:text="@string/phone"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/requiredExperienceYears"
+                    android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/required_experience_years"
+                    android:text="@string/phone"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/lblRequiredExperienceYears"
+                    app:layout_constraintStart_toEndOf="@+id/lblPhone"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/lblSalary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/salary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/salary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/salary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/lblSalary"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

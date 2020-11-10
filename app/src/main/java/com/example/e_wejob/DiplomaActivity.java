@@ -24,15 +24,15 @@ public class DiplomaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diploma);
 
-        btnSignup = findViewById(R.id.btnSignUp);
+        btnSignup = findViewById(R.id.btnLogin);
         bacaloriaType = findViewById(R.id.bacaloriaType);
-        universityType = findViewById(R.id.universityType);
+        universityType = findViewById(R.id.diplomaType);
         masterType = findViewById(R.id.masterType);
         phdType = findViewById(R.id.phdType);
 
 
         switchBacaloria = findViewById(R.id.switchBacaloria);
-        LinearLayout cardBacaloria = findViewById(R.id.cardBacaloria);
+        LinearLayout cardBacaloria = findViewById(R.id.cardBachelor);
         switchBacaloria.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -44,8 +44,8 @@ public class DiplomaActivity extends AppCompatActivity {
             }
         });
 
-        switchUniversity = findViewById(R.id.switchUniversity);
-        LinearLayout cardUniversity = findViewById(R.id.cardUniversity);
+        switchUniversity = findViewById(R.id.switchDiploma);
+        LinearLayout cardUniversity = findViewById(R.id.cardDiploma);
         switchUniversity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

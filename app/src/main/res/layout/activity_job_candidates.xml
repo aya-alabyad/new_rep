@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="12dp"
-    tools:context=".JobGalleryActivity">
+    tools:context=".JobCandidatesActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,12 +23,12 @@
                 android:layout_height="wrap_content" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/jobList"
+                android:id="@+id/candidatesList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="4"
-                tools:listitem="@layout/job_item" />
+                tools:listitem="@layout/candidate_item" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

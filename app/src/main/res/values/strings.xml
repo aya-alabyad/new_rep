@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">E_WeJob</string>
-    <string name="company_name">Company Name</string>
+    <string name="company_name">Company Name :</string>
     <string name="telephone">Telephone</string>
-    <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="full_name">Full Name</string>
     <string name="experience_years">Experience Years</string>
@@ -11,8 +10,8 @@
     <string name="bacloria">bacloria</string>
     <string name="certificate_type">Certificate Type</string>
     <string name="job_title">Job Title</string>
-    <string name="salary">Salary</string>
-    <string name="required_experience_years">Required Experience Years</string>
+    <string name="salary">Salary :</string>
+    <string name="required_experience_years">Required Experience Years :</string>
     <string name="add_job">Add Job</string>
     <string name="name">Name</string>
     <string name="e_mailadress">E-MailAdress</string>
@@ -25,12 +24,22 @@
     <string name="phd">phD</string>
     <string name="err_email">Please Enter Correct Email</string>
     <string name="err_phone">Please Enter Correct Phone</string>
-    <string name="required_education_level">Required Education Level</string>
+    <string name="required_education_level">Required Education Level :</string>
     <string name="err_pass">Please Enter 8 Characters at Least</string>
     <string name="company_telephone">Company Telephone</string>
     <string name="company_password">Company Password</string>
     <string name="add_company">Add Company</string>
     <string name="logout">Logout</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember me</string>
+    <string name="bachelor">Bachelor</string>
+    <string name="diploma">Diploma</string>
+    <string name="create_account">Create Account</string>
+    <string name="show_candidates">Show Candidates</string>
+    <string name="show_all_jobs">Show All Jobs</string>
+    <string name="order_jobs_by_experience_years">Order Jobs by Experience Years</string>
+    <string name="order_jobs_by_education_level">Order Jobs By Education Level</string>
+    <string name="phone">Phone</string>
     <string-array name="TypeOfRegisteration">
         <item>Type Of Register</item>
         <item>Company</item>
@@ -38,8 +47,8 @@
     </string-array>
     <string-array name="degree">
         <item>Required Education Level</item>
-        <item>Bacaloria</item>
-        <item>University</item>
+        <item>Bachelor</item>
+        <item>Diploma</item>
         <item>Master</item>
         <item>PHD</item>
     </string-array>

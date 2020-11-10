@@ -11,7 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.e_wejob.models.Job;
+import com.example.e_wejob.models.Candidate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,20 +20,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobGalleryActivity extends AppCompatActivity {
-
-    RecyclerView jobList;
-    List<Job> jobs;
+public class JobCandidatesActivity extends AppCompatActivity {
+    RecyclerView candidatesList;
+    List<Candidate> candidates;
     String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/jobs";
     RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_gallery);
-        jobList = findViewById(R.id.jobList);
+        setContentView(R.layout.activity_job_candidates);
+        candidatesList = findViewById(R.id.candidatesList);
 
-        jobs = new ArrayList(1);
+        candidates = new ArrayList(1);
 //        JobItemAdapter jobItemAdapter = new JobItemAdapter(this, jobs);
 
         // Creates the Volley request queue
@@ -42,7 +41,7 @@ public class JobGalleryActivity extends AppCompatActivity {
 
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonArrayRequest jobsRequest = new JsonArrayRequest(JsonURL,
+        JsonArrayRequest jobsCandidatesRequest = new JsonArrayRequest(JsonURL,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
@@ -54,7 +53,7 @@ public class JobGalleryActivity extends AppCompatActivity {
                         try {
                             // Retrieves first JSON object in outer array
 
-                            jobs = new ArrayList(response.length());
+                            candidates = new ArrayList(response.length());
                             for (int i = 0; i < response.length(); i++) {
                                 //gets each JSON object within the JSON array
                                 JSONObject jsonObject = response.getJSONObject(i);
@@ -62,21 +61,24 @@ public class JobGalleryActivity extends AppCompatActivity {
                                 // Retrieves the string labeled "colorName" and "hexValue",
                                 // and converts them into javascript objects
                                 int id = jsonObject.getInt("id");
-                                int company_id = jsonObject.getInt("company_id");
-                                String title = jsonObject.getString("title");
-                                String salary = jsonObject.getString("salary");
-                                String requiredEducationLevel = jsonObject.getString("requiredEducationLevel");
-                                int requiredExperienceYears = jsonObject.getInt("requiredExperienceYears");
+                                String name = jsonObject.getString("name");
+                                String experienceYears = jsonObject.getString("experienceYears");
+                                String phone = jsonObject.getString("phone");
+
+                                String diploma = jsonObject.getString("phone");
+
+                                //ToDo: manipulate diploma string to list
+
                                 String created_at = jsonObject.getString("created_at");
                                 String updated_at = jsonObject.getString("updated_at");
 
-                                Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears, created_at, updated_at);
+                                Candidate j = new Candidate(id, name, phone, experienceYears, null);
 
-                                jobs.add(j);
+                                candidates.add(j);
                             }
 
-                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobGalleryActivity.this, jobs);
-                            jobList.setAdapter(jobItemAdapter);
+                            CandidateItemAdapter candidateItemAdapter = new CandidateItemAdapter(JobCandidatesActivity.this, candidates);
+                            candidatesList.setAdapter(candidateItemAdapter);
                         }
                         // Try and catch are included to handle any errors due to JSON
                         catch (JSONException e) {
@@ -96,6 +98,7 @@ public class JobGalleryActivity extends AppCompatActivity {
                 }
         );
         // Adds the JSON array request "arrayreq" to the request queue
-        requestQueue.add(jobsRequest);
+        requestQueue.add(jobsCandidatesRequest);
+
     }
 }
