@@ -72,7 +72,7 @@ public class JobCandidatesActivity extends AppCompatActivity {
                                 String created_at = jsonObject.getString("created_at");
                                 String updated_at = jsonObject.getString("updated_at");
 
-                                Candidate j = new Candidate(id, name, phone, experienceYears, null);
+                                Candidate j = new Candidate(id, name, phone, experienceYears, "", null);
 
                                 candidates.add(j);
                             }

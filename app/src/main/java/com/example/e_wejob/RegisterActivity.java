@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText email, tel, password, confirm, fullName, cName;
     Spinner type;
     Button btnSignup;
-//variable to detect registeration type 0 no select ,1 for company ,2 for Candidate
+    //variable to detect registeration type 0 no select ,1 for company ,2 for Candidate
     int registerType = 0;
 
     @Override
@@ -83,7 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
-// validationMethod return true or false
+
+    // validationMethod return true or false
     public boolean validationMethod() {
         boolean valid = true;
         String emailText, telText, passwordText, confirmText, cNameText, fullNameText;
