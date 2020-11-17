@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,11 +25,8 @@ import com.example.e_wejob.models.Company;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LoginActivity extends AppCompatActivity {
-    SharedPreferences sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
+    SharedPreferences sharedPreferences;
 
 
     RequestQueue requestQueue;
@@ -40,12 +39,17 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView registerLink;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnLogin = findViewById(R.id.btnLogin);
         registerLink = findViewById(R.id.registerLink);
+
+        progressBar = findViewById(R.id.progress1);
+        sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
@@ -55,6 +59,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailValue = email.getText().toString();
                 String passwordValue = password.getText().toString();
+                if (emailValue.trim().equals("")) {
+                    email.setError(getString(R.string.required));
+                    return;
+                }
+                if (passwordValue.trim().equals("")) {
+                    password.setError(getString(R.string.required));
+                    return;
+                }
+                progressBar.setVisibility(View.VISIBLE);
                 Login(emailValue, passwordValue);
             }
         });
@@ -77,9 +90,16 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(LoginActivity.this);
 
 
+        JSONObject params = new JSONObject();
+        try {
+            params.put("email", email);
+            params.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, JsonURL,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, JsonURL, params,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
@@ -105,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             if (type.equals("Company")) {
-                                String cName = jsonObject.getString("cName");
+                                String cName = jsonObject.getString("name");
 
                                 Company company = new Company(id, cName, tel, "Company");
                                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
@@ -114,10 +134,13 @@ public class LoginActivity extends AppCompatActivity {
                                 myEdit.putString("cName", cName);
                                 myEdit.putString("company_tel", tel);
                                 myEdit.putString("type", "Company");
+                                myEdit.putBoolean("is_login", true);
                                 myEdit.apply();
                                 Intent intent = new Intent(LoginActivity.this, CompanyMainActivity.class);
 
                                 startActivity(intent);
+                                finish();
+
                             } else {
                                 String name = jsonObject.getString("name");
                                 String experienceYears = jsonObject.getString("experienceYears");
@@ -130,10 +153,13 @@ public class LoginActivity extends AppCompatActivity {
                                 myEdit.putString("candidate_tel", tel);
                                 myEdit.putString("type", "Candidate");
                                 myEdit.putString("experienceYears", experienceYears);
+                                myEdit.putBoolean("is_login", true);
+
                                 myEdit.apply();
                                 Intent intent = new Intent(LoginActivity.this, CandidateMainActivity.class);
 
                                 startActivity(intent);
+                                finish();
                             }
 
                         }
@@ -151,18 +177,11 @@ public class LoginActivity extends AppCompatActivity {
                     // Handles errors that occur due to Volley
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", "Error");
+                        Toast.makeText(LoginActivity.this, "Email or Password is Incorrect", Toast.LENGTH_LONG).show();
                     }
                 }
         ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("password", password);
-                return params;
-            }
 
-            ;
         };
         // Adds the JSON array request "arrayreq" to the request queue
         requestQueue.add(request);

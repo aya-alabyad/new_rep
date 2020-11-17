@@ -1,7 +1,11 @@
 package com.example.e_wejob;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,11 +29,28 @@ public class JobCandidatesActivity extends AppCompatActivity {
     List<Candidate> candidates;
     String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/jobs";
     RequestQueue requestQueue;
+    SharedPreferences sharedPreferences;
+
+    Button btnLogout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_candidates);
+        sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                myEdit.clear();
+                myEdit.apply();
+                Intent i = new Intent(JobCandidatesActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
         candidatesList = findViewById(R.id.candidatesList);
 
         candidates = new ArrayList(1);

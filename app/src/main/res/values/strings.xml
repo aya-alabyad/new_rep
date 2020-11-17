@@ -40,6 +40,7 @@
     <string name="order_jobs_by_experience_years">Order Jobs by Experience Years</string>
     <string name="order_jobs_by_education_level">Order Jobs By Education Level</string>
     <string name="phone">Phone</string>
+    <string name="candidate_name">Candidate Name</string>
     <string-array name="TypeOfRegisteration">
         <item>Type Of Register</item>
         <item>Company</item>

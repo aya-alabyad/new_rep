@@ -19,10 +19,19 @@ public class DiplomaActivity extends AppCompatActivity {
     Switch switchBacaloria, switchUniversity, switchMaster, switchPhd;
     EditText bacaloriaType, universityType, masterType, phdType;
 
+    String email, password, tel, name, type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diploma);
+
+        Intent i = getIntent();
+        email = i.getStringExtra("email");
+        password = i.getStringExtra("password");
+        tel = i.getStringExtra("tel");
+        name = i.getStringExtra("name");
+        type = "Candidate";
 
         btnSignup = findViewById(R.id.btnLogin);
         bacaloriaType = findViewById(R.id.bacaloriaType);

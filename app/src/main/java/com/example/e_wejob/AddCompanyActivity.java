@@ -1,6 +1,7 @@
 package com.example.e_wejob;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -14,10 +15,28 @@ public class AddCompanyActivity extends AppCompatActivity {
     EditText email, tel, password, cName;
     Button btnAddCompany;
 
+    SharedPreferences sharedPreferences;
+
+    Button btnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_company);
+
+        sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                myEdit.clear();
+                myEdit.apply();
+                Intent i = new Intent(AddCompanyActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         btnAddCompany = findViewById(R.id.btnAddCompany);
 
