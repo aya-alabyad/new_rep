@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="@string/e_mailadress">
+                    android:hint="@string/email_address">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -121,6 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:entries="@array/TypeOfRegisteration"
+                        android:gravity="left"
                         android:spinnerMode="dropdown" />
                 </RelativeLayout>
 

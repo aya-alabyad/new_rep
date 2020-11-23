@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CompanyMainActivity extends AppCompatActivity {
+public class AdminMainActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
@@ -18,7 +18,7 @@ public class CompanyMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_main);
+        setContentView(R.layout.activity_admin_main);
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
         btnLogout = findViewById(R.id.btnLogout);
@@ -29,26 +29,24 @@ public class CompanyMainActivity extends AppCompatActivity {
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.clear();
                 myEdit.apply();
-                Intent i = new Intent(CompanyMainActivity.this, LoginActivity.class);
+                Intent i = new Intent(AdminMainActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }
         });
 
-        TextView company = findViewById(R.id.companyName);
-        String cName = sharedPreferences.getString("cName", "null");
-        company.setText("Welcome: " + cName);
-
-
+        TextView adminName = findViewById(R.id.adminName);
+        String cName = sharedPreferences.getString("admin_name", "admin");
+        adminName.setText("Welcome: " + cName);
     }
 
-    public void AddJob(View view) {
-        Intent i = new Intent(CompanyMainActivity.this, AddJobActivity.class);
+    /*public void AddJob(View view) {
+        Intent i = new Intent(AdminMainActivity.this, AddJobActivity.class);
         startActivity(i);
-    }
+    }*/
 
-    public void showCompanyJobs(View view) {
-        Intent i = new Intent(CompanyMainActivity.this, CompanyJobsGalleryActivity.class);
+    public void AddCompany(View view) {
+        Intent i = new Intent(AdminMainActivity.this, AddCompanyActivity.class);
         startActivity(i);
     }
 

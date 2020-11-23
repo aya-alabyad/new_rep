@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">E_WeJob</string>
-    <string name="company_name">Company Name :</string>
+    <string name="company_name">Company Name </string>
     <string name="telephone">Telephone</string>
     <string name="password">Password</string>
     <string name="full_name">Full Name</string>
@@ -11,17 +11,21 @@
     <string name="certificate_type">Certificate Type</string>
     <string name="job_title">Job Title</string>
     <string name="salary">Salary :</string>
+    <string name="salary1">Salary </string>
+
     <string name="required_experience_years">Required Experience Years :</string>
+    <string name="required_experience_years1">Required Experience Years </string>
+
     <string name="add_job">Add Job</string>
     <string name="name">Name</string>
-    <string name="e_mailadress">E-MailAdress</string>
+    <string name="e_mailadress">Email Address</string>
     <string name="logo">logo</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="required">Required</string>
     <string name="pass_not_match">Password Not Matching</string>
     <string name="university">University</string>
     <string name="master">Master</string>
-    <string name="phd">phD</string>
+    <string name="phd">PhD</string>
     <string name="err_email">Please Enter Correct Email</string>
     <string name="err_phone">Please Enter Correct Phone</string>
     <string name="required_education_level">Required Education Level :</string>
@@ -41,6 +45,10 @@
     <string name="order_jobs_by_education_level">Order Jobs By Education Level</string>
     <string name="phone">Phone</string>
     <string name="candidate_name">Candidate Name</string>
+    <string name="show_company_jobs">Show Company Jobs</string>
+    <string name="email_address">Email Address</string>
+    <string name="company_name1">Company Name1</string>
+    <string name="suitable_jobs">Show Suitable Jobs</string>
     <string-array name="TypeOfRegisteration">
         <item>Type Of Register</item>
         <item>Company</item>
@@ -51,6 +59,6 @@
         <item>Bachelor</item>
         <item>Diploma</item>
         <item>Master</item>
-        <item>PHD</item>
+        <item>PhD</item>
     </string-array>
 </resources>

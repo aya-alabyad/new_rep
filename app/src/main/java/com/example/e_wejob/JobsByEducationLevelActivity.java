@@ -24,10 +24,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobsByYearsActivity extends AppCompatActivity {
+public class JobsByEducationLevelActivity extends AppCompatActivity {
     RecyclerView jobList;
     List<Job> jobs;
-    String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/filterJobsByYearsApi";
+    String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/filterJobsByExperianceApi";
     RequestQueue requestQueue;
 
     SharedPreferences sharedPreferences;
@@ -37,7 +37,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_by_years);
+        setContentView(R.layout.activity_jobs_by_education_level);
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
         btnLogout = findViewById(R.id.btnLogout);
@@ -47,7 +47,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.clear();
                 myEdit.apply();
-                Intent i = new Intent(JobsByYearsActivity.this, LoginActivity.class);
+                Intent i = new Intent(JobsByEducationLevelActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -97,7 +97,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
                                 jobs.add(j);
                             }
 
-                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobsByYearsActivity.this, jobs);
+                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobsByEducationLevelActivity.this, jobs);
                             jobList.setAdapter(jobItemAdapter);
                         }
                         // Try and catch are included to handle any errors due to JSON

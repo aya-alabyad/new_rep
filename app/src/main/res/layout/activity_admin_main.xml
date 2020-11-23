@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CompanyMainActivity">
+    tools:context=".AdminMainActivity">
 
     <include
         layout="@layout/logout_bar"
@@ -12,14 +12,25 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/companyName"
+        android:id="@+id/adminName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="8dp"
-        android:text="Company Name" />
+        android:text="@string/company_name" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/addCompany"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:onClick="AddCompany"
+        android:text="@string/add_company"
+        android:textAllCaps="false" />
+
+  <!--  <com.google.android.material.button.MaterialButton
         android:id="@+id/addJob"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
@@ -28,18 +39,6 @@
         android:layout_marginTop="20dp"
         android:onClick="AddJob"
         android:text="@string/add_job"
-        android:textAllCaps="false" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/showCompanyJobs"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:onClick="showCompanyJobs"
-        android:text="@string/show_company_jobs"
-        android:textAllCaps="false" />
-
+        android:textAllCaps="false" />-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

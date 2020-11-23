@@ -44,12 +44,17 @@ public class CandidateMainActivity extends AppCompatActivity {
     }
 
     public void showJobsbyYears(View view) {
-        Intent i = new Intent(CandidateMainActivity.this, JobGalleryActivity.class);
+        Intent i = new Intent(CandidateMainActivity.this, JobsByYearsActivity.class);
         startActivity(i);
     }
 
     public void showJobsbyEducationLevel(View view) {
-        Intent i = new Intent(CandidateMainActivity.this, JobGalleryActivity.class);
+        Intent i = new Intent(CandidateMainActivity.this, JobsByEducationLevelActivity.class);
+        startActivity(i);
+    }
+
+    public void showSuitableJobs(View view) {
+        Intent i = new Intent(CandidateMainActivity.this, SuitableJobsForCandidateActivity.class);
         startActivity(i);
     }
 }

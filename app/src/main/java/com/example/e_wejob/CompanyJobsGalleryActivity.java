@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobGalleryActivity extends AppCompatActivity {
+public class CompanyJobsGalleryActivity extends AppCompatActivity {
     RequestQueue requestQueue;
 
     RecyclerView jobList;
@@ -39,7 +40,7 @@ public class JobGalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_job_gallery);
+        setContentView(R.layout.activity_company_jobs_gallery);
 
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
@@ -51,7 +52,7 @@ public class JobGalleryActivity extends AppCompatActivity {
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.clear();
                 myEdit.apply();
-                Intent i = new Intent(JobGalleryActivity.this, LoginActivity.class);
+                Intent i = new Intent(CompanyJobsGalleryActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -69,7 +70,7 @@ public class JobGalleryActivity extends AppCompatActivity {
         protected Void doInBackground(Void... v) {
 
             // Creates the Volley request queue
-            requestQueue = Volley.newRequestQueue(JobGalleryActivity.this);
+            requestQueue = Volley.newRequestQueue(CompanyJobsGalleryActivity.this);
 
 
             // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
@@ -83,6 +84,7 @@ public class JobGalleryActivity extends AppCompatActivity {
                         // Takes the response from the JSON request
                         @Override
                         public void onResponse(JSONArray response) {
+                            Log.e("ooooo", response.toString());
                             try {
                                 // Retrieves first JSON object in outer array
 
@@ -94,19 +96,36 @@ public class JobGalleryActivity extends AppCompatActivity {
                                     // Retrieves the string labeled "colorName" and "hexValue",
                                     // and converts them into javascript objects
                                     int id = jsonObject.getInt("id");
-                                    int company_id = jsonObject.getInt("id");
+                                    int company_id = jsonObject.getInt("company_id");
                                     String title = jsonObject.getString("title");
                                     String salary = jsonObject.getString("salary");
                                     String requiredEducationLevel = jsonObject.getString("requiredEducationLevel");
                                     int requiredExperienceYears = jsonObject.getInt("requiredExperienceYears");
-                                    String created_at = jsonObject.getString("created_at");
-                                    String updated_at = jsonObject.getString("updated_at");
 
-                                    Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears, created_at, updated_at);
 
-                                    jobs.add(j);
+                                    int id_from_pref = sharedPreferences.getInt("id", 0);
+                                    if (company_id == id_from_pref) {
+                                        Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears);
+
+                                        jobs.add(j);
+                                    }
                                 }
-                                JobItemAdapter jobItemAdapter = new JobItemAdapter(JobGalleryActivity.this, jobs);
+                                if (jobs.size() < 1) {
+                                    Toast.makeText(CompanyJobsGalleryActivity.this, "No jobs Assigned Yet!", Toast.LENGTH_LONG).show();
+                                }
+                                CompanyJobItemAdapter jobItemAdapter = new CompanyJobItemAdapter(CompanyJobsGalleryActivity.this, jobs, new MyOnClick() {
+                                    @Override
+                                    public void onClick(int id) {
+                                        Intent i = new Intent(CompanyJobsGalleryActivity.this, JobCandidatesActivity.class);
+                                        i.putExtra("job_id", id + "");
+                                        startActivity(i);
+                                    }
+
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                });
                                 jobList.setAdapter(jobItemAdapter);
                             }
                             // Try and catch are included to handle any errors due to JSON

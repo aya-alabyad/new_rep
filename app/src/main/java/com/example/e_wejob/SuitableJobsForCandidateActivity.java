@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.e_wejob.models.Job;
 
@@ -24,10 +24,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobsByYearsActivity extends AppCompatActivity {
+public class SuitableJobsForCandidateActivity extends AppCompatActivity {
     RecyclerView jobList;
     List<Job> jobs;
-    String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/filterJobsByYearsApi";
+    String JsonURL = "https://dry-everglades-05566.herokuapp.com/api/getSuitableJobApi";
     RequestQueue requestQueue;
 
     SharedPreferences sharedPreferences;
@@ -37,7 +37,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_by_years);
+        setContentView(R.layout.activity_suitable_jobs_for_candidate);
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
         btnLogout = findViewById(R.id.btnLogout);
@@ -47,7 +47,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.clear();
                 myEdit.apply();
-                Intent i = new Intent(JobsByYearsActivity.this, LoginActivity.class);
+                Intent i = new Intent(SuitableJobsForCandidateActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -62,26 +62,28 @@ public class JobsByYearsActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
 
+        int candidate_id = sharedPreferences.getInt("id", 0);
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonArrayRequest jobsRequest = new JsonArrayRequest(JsonURL,
+        JsonObjectRequest jobsRequest = new JsonObjectRequest(JsonURL + "?Id=" + candidate_id,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
 
                     // Takes the response from the JSON request
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         Log.e("ddddd", response.toString());
                         try {
                             // Retrieves first JSON object in outer array
 
+                            JSONArray data = response.getJSONArray("data");
 
-                            jobs = new ArrayList(response.length());
-                            for (int i = 0; i < response.length(); i++) {
+                            jobs = new ArrayList(data.length());
+                            for (int i = 0; i < data.length(); i++) {
                                 //gets each JSON object within the JSON array
-                                JSONObject jsonObject = response.getJSONObject(i);
+                                JSONObject jsonObject = data.getJSONObject(i);
 
                                 // Retrieves the string labeled "colorName" and "hexValue",
                                 // and converts them into javascript objects
@@ -97,7 +99,7 @@ public class JobsByYearsActivity extends AppCompatActivity {
                                 jobs.add(j);
                             }
 
-                            JobItemAdapter jobItemAdapter = new JobItemAdapter(JobsByYearsActivity.this, jobs);
+                            JobItemAdapter jobItemAdapter = new JobItemAdapter(SuitableJobsForCandidateActivity.this, jobs);
                             jobList.setAdapter(jobItemAdapter);
                         }
                         // Try and catch are included to handle any errors due to JSON
@@ -114,7 +116,8 @@ public class JobsByYearsActivity extends AppCompatActivity {
                     @Override
                     // Handles errors that occur due to Volley
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", "Error");
+
+                        Log.e("Volley", "Error" + error.getMessage());
                     }
                 }
         );

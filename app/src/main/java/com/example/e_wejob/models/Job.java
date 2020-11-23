@@ -21,5 +21,14 @@ public class Job {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public Job(int id, int companyId, String title, String salary, String requiredEducationLevel, int requiredExperienceYears) {
+        this.id = id;
+        this.companyId = companyId;
+        this.title = title;
+        this.salary = salary;
+        this.requiredEducationLevel = requiredEducationLevel;
+        this.requiredExperienceYears = requiredExperienceYears;
+    }
 }
 

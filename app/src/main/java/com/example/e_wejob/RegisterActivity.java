@@ -114,34 +114,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!validationMethod()) return;
 
-                String emailText, telText, passwordText, confirmText, cNameText, fullNameText;
+                String emailText, telText, passwordText, cNameText;
                 emailText = email.getText().toString();
                 telText = tel.getText().toString();
                 passwordText = password.getText().toString();
-                confirmText = confirm.getText().toString();
                 cNameText = cName.getText().toString();
                 if (registerType == 1) {
                     progressBar.setVisibility(View.VISIBLE);
                     Register(emailText, telText, passwordText, "Company", cNameText);
-                }
-                if (registerType == 2) {
-                   /* fullNameText = fullName.getText().toString();
-                    String name = jsonObject.getString("name");
-                    String experienceYears = jsonObject.getString("experienceYears");
-
-                    Candidate company = new Candidate(id, name, tel, experienceYears, email, null);
-                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-                    myEdit.putInt("candidate_id", id);
-                    myEdit.putString("name", name);
-                    myEdit.putString("candidate_tel", telText);
-                    myEdit.putString("type", "Candidate");
-                    myEdit.putString("experienceYears", experienceYears);
-                    myEdit.apply();
-                    Intent intent = new Intent(RegisterActivity.this, CandidateMainActivity.class);
-
-                    startActivity(intent);*/
-
                 }
             }
         });
@@ -178,6 +158,16 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("respone", response.toString());
+
+                        try {
+                            String msg = response.getString("message");
+                            if (msg.contains("aleardy")) {
+                                Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         try {
                             // Retrieves first JSON object in outer array
 
@@ -198,7 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-                                myEdit.putInt("company_id", id);
+                                myEdit.putInt("id", id);
                                 myEdit.putString("cName", cName);
                                 myEdit.putString("company_tel", telephone);
                                 myEdit.putString("type", "Company");
@@ -216,7 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 Candidate company = new Candidate(id, name, "", "", email, null);
                                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-                                myEdit.putInt("candidate_id", id);
+                                myEdit.putInt("id", id);
                                 myEdit.putString("name", name);
                                 //myEdit.putString("candidate_tel", tel);
                                 myEdit.putString("type", "Candidate");
@@ -234,6 +224,8 @@ public class RegisterActivity extends AppCompatActivity {
                         catch (JSONException e) {
                             // If an error occurs, this prints the error to the log
                             e.printStackTrace();
+                            progressBar.setVisibility(View.GONE);
+
                         }
                     }
                 },
@@ -244,6 +236,8 @@ public class RegisterActivity extends AppCompatActivity {
                     // Handles errors that occur due to Volley
                     public void onErrorResponse(VolleyError error) {
                         Log.e("Volley", "Error");
+                        progressBar.setVisibility(View.GONE);
+
                     }
                 }
         ) {

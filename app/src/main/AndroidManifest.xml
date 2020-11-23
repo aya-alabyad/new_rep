@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.e_wejob">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,13 +11,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.E_WeJob">
+        android:theme="@style/Theme.E_WeJob"
+        android:usesCleartextTraffic="true"
+        tools:ignore="UnusedAttribute">
         <activity android:name=".JobCandidatesActivity" />
         <activity android:name=".JobsByYearsActivity" />
         <activity android:name=".CandidateMainActivity" />
         <activity android:name=".CompanyMainActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".AddCompanyActivity" />
+        <activity android:name=".AddCompanyActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -36,6 +45,11 @@
         </activity>
         <activity android:name=".AddJobActivity" />
         <activity android:name=".DiplomaActivity" />
+        <activity android:name=".AdminMainActivity" />
+        <activity android:name=".JobsByEducationLevelActivity" />
+        <activity android:name=".CompanyJobsGalleryActivity" />
+        <activity android:name=".SuitableJobsForCandidateActivity" />
+
     </application>
 
 </manifest>

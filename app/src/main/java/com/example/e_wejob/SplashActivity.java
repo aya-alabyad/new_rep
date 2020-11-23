@@ -9,18 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
-
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                 //  فحص حالة المستخدم المسجل دخول مسبقا
                 boolean is_Login = sharedPreferences.getBoolean("is_login", false);
+                // توجيه المستخدم المسجل دخول مسبقا حسب نوعه (مرشح_شركة_إداري) للصفحة الرئيسية له
                 if (is_Login) {
                     String type = sharedPreferences.getString("type", "");
                     if (type.equals("Candidate")) {
@@ -29,6 +28,10 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     } else if (type.equals("Company")) {
                         Intent i = new Intent(SplashActivity.this, CompanyMainActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Intent i = new Intent(SplashActivity.this, AdminMainActivity.class);
                         startActivity(i);
                         finish();
                     }
