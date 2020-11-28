@@ -1,7 +1,10 @@
 package com.example.e_wejob;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +55,9 @@ public class DiplomaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diploma);
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
-
+//
+//  جلب البيانات المررة من واجهة Register
+        //السابقة من خلال ال intent
         Intent i = getIntent();
         email = i.getStringExtra("email");
         password = i.getStringExtra("password");
@@ -137,19 +142,19 @@ public class DiplomaActivity extends AppCompatActivity {
                 if (!validationMethod()) return;
 
                 if (isBacaloria) {
-                    diplomaType += "bachelor,";
+                    diplomaType += "Bachelor,";
                     diplomaTitle += bacaloriaText + ",";
                 }
                 if (isUniversity) {
-                    diplomaType += "diploma,";
+                    diplomaType += "Diploma,";
                     diplomaTitle += universityText + ",";
                 }
                 if (isMaster) {
-                    diplomaType += "master,";
+                    diplomaType += "Master,";
                     diplomaTitle += masterText + ",";
                 }
                 if (isMaster) {
-                    diplomaType += "phD,";
+                    diplomaType += "PhD,";
                     diplomaTitle += phdText + ",";
                 }
                 if (diplomaType.endsWith(",")) {
@@ -158,9 +163,20 @@ public class DiplomaActivity extends AppCompatActivity {
                 if (diplomaTitle.endsWith(",")) {
                     diplomaTitle = diplomaTitle.substring(0, diplomaTitle.length() - 1);
                 }
-                Register(email, tel, password, name, experienceYearsValue, diplomaType, diplomaTitle);
+                if (isNetworkAvailable())
+                    Register(email, tel, password, name, experienceYearsValue, diplomaType, diplomaTitle);
+                else
+                    Toast.makeText(DiplomaActivity.this, "No Network Connection Found", Toast.LENGTH_LONG).show();
+
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public boolean validationMethod() {
@@ -272,6 +288,7 @@ public class DiplomaActivity extends AppCompatActivity {
                             Intent intent = new Intent(DiplomaActivity.this, CandidateMainActivity.class);
 
                             startActivity(intent);
+                            finish();
 
                         }
                         // Try and catch are included to handle any errors due to JSON

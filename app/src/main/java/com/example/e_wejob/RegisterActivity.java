@@ -1,7 +1,10 @@
 package com.example.e_wejob;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,7 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
     Spinner type;
     Button btnSignup;
     RequestQueue requestQueue;
+
     String jsonUrl = "https://dry-everglades-05566.herokuapp.com/api/RegisterApi";
+
+
     //variable to detect registeration type 0 no select ,1 for company ,2 for Candidate
     int registerType = 0;
 
@@ -55,25 +61,25 @@ public class RegisterActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("e_job", MODE_PRIVATE);
 
         btnSignup = findViewById(R.id.btnLogin);
-
         email = findViewById(R.id.email);
         tel = findViewById(R.id.tel);
         password = findViewById(R.id.password);
         confirm = findViewById(R.id.confirm);
         fullName = findViewById(R.id.fullName);
         cName = findViewById(R.id.cName);
-
         type = findViewById(R.id.type);
         type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TextInputLayout cNameLayout = findViewById(R.id.cNameLayout);
                 MaterialCardView candidateCard = findViewById(R.id.candidateCard);
+                //Register type is Company
                 if (position == 1) {
                     registerType = 1;
                     cNameLayout.setVisibility(View.VISIBLE);
                     candidateCard.setVisibility(View.GONE);
                 }
+                //Register type is Candidate
                 if (position == 2) {
                     registerType = 2;
                     cNameLayout.setVisibility(View.GONE);
@@ -120,17 +126,26 @@ public class RegisterActivity extends AppCompatActivity {
                 passwordText = password.getText().toString();
                 cNameText = cName.getText().toString();
                 if (registerType == 1) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    Register(emailText, telText, passwordText, "Company", cNameText);
+                    if (isNetworkAvailable()) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        Register(emailText, telText, passwordText, "Company", cNameText);
+                    } else
+                        Toast.makeText(RegisterActivity.this, "No Network Connection Found", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public void Register(String email, String telephone, String password, String type, String cName) {
-
-
         // Creates the Volley request queue
         requestQueue = Volley.newRequestQueue(RegisterActivity.this);
 
@@ -144,21 +159,18 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, jsonUrl, params,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
-
                 new Response.Listener<JSONObject>() {
 
                     // Takes the response from the JSON request
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.e("respone", response.toString());
 
+                        Log.e("respone", response.toString());
                         try {
                             String msg = response.getString("message");
                             if (msg.contains("aleardy")) {
@@ -169,34 +181,20 @@ public class RegisterActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         try {
-                            // Retrieves first JSON object in outer array
-
-                            //gets each JSON object within the JSON array
                             JSONObject jsonObject = response.getJSONObject("data");
                             String type = jsonObject.getString("type");
-
-                            // Retrieves the string labeled "colorName" and "hexValue",
-                            // and converts them into javascript objects
                             int id = jsonObject.getInt("id");
-
                             String email = jsonObject.getString("email");
-                            // String tel = jsonObject.getString("tel");
-
-
                             if (type.equals("Company")) {
                                 String cName = jsonObject.getString("name");
-
                                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
                                 myEdit.putInt("id", id);
                                 myEdit.putString("cName", cName);
                                 myEdit.putString("company_tel", telephone);
                                 myEdit.putString("type", "Company");
                                 myEdit.putBoolean("is_login", true);
-
                                 myEdit.apply();
                                 Intent intent = new Intent(RegisterActivity.this, CompanyMainActivity.class);
-
                                 startActivity(intent);
                                 finish();
                             } else {
@@ -265,6 +263,7 @@ public class RegisterActivity extends AppCompatActivity {
         confirmText = confirm.getText().toString();
         cNameText = cName.getText().toString();
         fullNameText = fullName.getText().toString();
+
         if (emailText.trim().equals("")) {
             valid = false;
             email.setError(getString(R.string.required));

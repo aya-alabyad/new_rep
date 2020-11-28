@@ -86,13 +86,15 @@ public class JobsByYearsActivity extends AppCompatActivity {
                                 // Retrieves the string labeled "colorName" and "hexValue",
                                 // and converts them into javascript objects
                                 int id = jsonObject.getInt("id");
-                                int company_id = jsonObject.getInt("id");
+                                int company_id = jsonObject.getInt("company_id");
+                                String company_name = jsonObject.getString("company_name");
+
                                 String title = jsonObject.getString("title");
                                 String salary = jsonObject.getString("salary");
                                 String requiredEducationLevel = jsonObject.getString("requiredEducationLevel");
                                 int requiredExperienceYears = jsonObject.getInt("requiredExperienceYears");
 
-                                Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears);
+                                Job j = new Job(id, company_id,company_name, title, salary, requiredEducationLevel, requiredExperienceYears);
 
                                 jobs.add(j);
                             }

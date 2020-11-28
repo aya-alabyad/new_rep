@@ -1,7 +1,10 @@
 package com.example.e_wejob;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -70,10 +73,21 @@ public class AddCompanyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!validationMethod()) return;
-                createCompany(emailText, telText, passwordText, cNameText);
+                if (isNetworkAvailable())
+                    createCompany(emailText, telText, passwordText, cNameText);
+                else
+                    Toast.makeText(AddCompanyActivity.this, "No Network Connection Found", Toast.LENGTH_LONG).show();
+
             }
         });
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void createCompany(String email, String telephone, String password, String cName) {

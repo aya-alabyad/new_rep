@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.e_wejob.models.Candidate;
+import com.example.e_wejob.models.Diploma;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +68,7 @@ public class JobCandidatesActivity extends AppCompatActivity {
 
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonObjectRequest jobsCandidatesRequest = new JsonObjectRequest(JsonURL + "?Id=" + job_id,
+        JsonObjectRequest jobsCandidatesRequest = new JsonObjectRequest(JsonURL + "?id=" + job_id,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
@@ -77,7 +78,7 @@ public class JobCandidatesActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("kkkkk", response.toString());
-                        try {
+                        /*try {
                             String msg = response.getString("message");
                             if (msg.contains("No")) {
                                 noCandidates.setVisibility(View.VISIBLE);
@@ -87,7 +88,9 @@ public class JobCandidatesActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }
+                        }*/
+
+
                         try {
                             // Retrieves first JSON object in outer array
 
@@ -108,12 +111,12 @@ public class JobCandidatesActivity extends AppCompatActivity {
 
                                 //ToDo: manipulate diploma string to list
 
-                                String created_at = jsonObject.getString("created_at");
-                                String updated_at = jsonObject.getString("updated_at");
+                               /* String created_at = jsonObject.getString("created_at");
+                                String updated_at = jsonObject.getString("updated_at");*/
 
-                                Candidate j = new Candidate(id, name, phone, experienceYears, "", null);
+                                Candidate jj = new Candidate(id, name, phone, experienceYears, "", null);
 
-                                candidates.add(j);
+                                candidates.add(jj);
                             }
 
                             CandidateItemAdapter candidateItemAdapter = new CandidateItemAdapter(JobCandidatesActivity.this, candidates);

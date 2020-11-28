@@ -90,24 +90,23 @@ public class JobGalleryActivity extends AppCompatActivity {
                                 for (int i = 0; i < response.length(); i++) {
                                     //gets each JSON object within the JSON array
                                     JSONObject jsonObject = response.getJSONObject(i);
-
-                                    // Retrieves the string labeled "colorName" and "hexValue",
-                                    // and converts them into javascript objects
                                     int id = jsonObject.getInt("id");
-                                    int company_id = jsonObject.getInt("id");
+                                    int company_id = jsonObject.getInt("company_id");
+                                    String company_name = jsonObject.getString("company_name");
                                     String title = jsonObject.getString("title");
                                     String salary = jsonObject.getString("salary");
                                     String requiredEducationLevel = jsonObject.getString("requiredEducationLevel");
                                     int requiredExperienceYears = jsonObject.getInt("requiredExperienceYears");
-                                    String created_at = jsonObject.getString("created_at");
-                                    String updated_at = jsonObject.getString("updated_at");
-
-                                    Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears, created_at, updated_at);
+                                   Job j = new Job(id, company_id, company_name, title, salary, requiredEducationLevel, requiredExperienceYears);
 
                                     jobs.add(j);
                                 }
+
+
                                 JobItemAdapter jobItemAdapter = new JobItemAdapter(JobGalleryActivity.this, jobs);
+
                                 jobList.setAdapter(jobItemAdapter);
+
                             }
                             // Try and catch are included to handle any errors due to JSON
                             catch (JSONException e) {

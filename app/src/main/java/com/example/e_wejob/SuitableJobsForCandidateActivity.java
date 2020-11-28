@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,11 +62,12 @@ public class SuitableJobsForCandidateActivity extends AppCompatActivity {
         // Creates the Volley request queue
         requestQueue = Volley.newRequestQueue(this);
 
+        TextView noJobs = findViewById(R.id.noJobs);
 
         int candidate_id = sharedPreferences.getInt("id", 0);
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonObjectRequest jobsRequest = new JsonObjectRequest(JsonURL + "?Id=" + candidate_id,
+        JsonObjectRequest jobsRequest = new JsonObjectRequest(JsonURL + "?id=" + candidate_id,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
@@ -75,6 +77,17 @@ public class SuitableJobsForCandidateActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("ddddd", response.toString());
+                        try {
+                            String msg = response.getString("message");
+                            if (msg.contains("No")) {
+                                noJobs.setVisibility(View.VISIBLE);
+                                noJobs.setText(msg);
+//                                Toast.makeText(JobCandidatesActivity.this, msg, Toast.LENGTH_LONG).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         try {
                             // Retrieves first JSON object in outer array
 
@@ -88,13 +101,15 @@ public class SuitableJobsForCandidateActivity extends AppCompatActivity {
                                 // Retrieves the string labeled "colorName" and "hexValue",
                                 // and converts them into javascript objects
                                 int id = jsonObject.getInt("id");
-                                int company_id = jsonObject.getInt("id");
+                                int company_id = jsonObject.getInt("company_id");
+                                String company_name = jsonObject.getString("company_name");
+
                                 String title = jsonObject.getString("title");
                                 String salary = jsonObject.getString("salary");
                                 String requiredEducationLevel = jsonObject.getString("requiredEducationLevel");
                                 int requiredExperienceYears = jsonObject.getInt("requiredExperienceYears");
 
-                                Job j = new Job(id, company_id, title, salary, requiredEducationLevel, requiredExperienceYears);
+                                Job j = new Job(id, company_id, company_name, title, salary, requiredEducationLevel, requiredExperienceYears);
 
                                 jobs.add(j);
                             }

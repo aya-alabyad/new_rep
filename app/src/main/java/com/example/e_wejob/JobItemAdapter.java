@@ -35,7 +35,7 @@ public class JobItemAdapter extends RecyclerView.Adapter<JobItemAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         Job j = mData.get(position);
         holder.jobTitle.setText(j.title);
-        holder.companyName.setText(j.companyId + "");
+        holder.companyName.setText(j.companyName);
         holder.requiredEducationLevel.setText(j.requiredEducationLevel);
         holder.requiredExperienceYears.setText(j.requiredExperienceYears + "");
         holder.salary.setText(j.salary + " S.P");
