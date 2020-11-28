@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.e_wejob.models.Candidate;
-import com.example.e_wejob.models.Diploma;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,33 +67,21 @@ public class JobCandidatesActivity extends AppCompatActivity {
 
         // Creating the JsonArrayRequest class called arrayreq, passing the required parameters
         //JsonURL is the URL to be fetched from
-        JsonObjectRequest jobsCandidatesRequest = new JsonObjectRequest(JsonURL + "?id=" + job_id,
+        JsonArrayRequest jobsCandidatesRequest = new JsonArrayRequest(JsonURL + "?id=" + job_id,
                 // The second parameter Listener overrides the method onResponse() and passes
                 //JSONArray as a parameter
 
-                new Response.Listener<JSONObject>() {
+                new Response.Listener<JSONArray>() {
 
                     // Takes the response from the JSON request
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         Log.e("kkkkk", response.toString());
-                        /*try {
-                            String msg = response.getString("message");
-                            if (msg.contains("No")) {
-                                noCandidates.setVisibility(View.VISIBLE);
-                                noCandidates.setText(msg);
-//                                Toast.makeText(JobCandidatesActivity.this, msg, Toast.LENGTH_LONG).show();
-
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
-
 
                         try {
                             // Retrieves first JSON object in outer array
 
-                            JSONArray data = response.getJSONArray("data");
+                            JSONArray data = response;
                             candidates = new ArrayList(data.length());
                             for (int i = 0; i < data.length(); i++) {
                                 //gets each JSON object within the JSON array
@@ -105,16 +92,16 @@ public class JobCandidatesActivity extends AppCompatActivity {
                                 int id = jsonObject.getInt("id");
                                 String name = jsonObject.getString("name");
                                 String experienceYears = jsonObject.getString("experienceYears");
-                                String phone = jsonObject.getString("phone");
+                                String email = jsonObject.getString("email");
 
-                                String diploma = jsonObject.getString("phone");
+                                String diplomaType = jsonObject.getString("diplomaType");
 
                                 //ToDo: manipulate diploma string to list
 
                                /* String created_at = jsonObject.getString("created_at");
                                 String updated_at = jsonObject.getString("updated_at");*/
 
-                                Candidate jj = new Candidate(id, name, phone, experienceYears, "", null);
+                                Candidate jj = new Candidate(id, name, experienceYears, email, diplomaType);
 
                                 candidates.add(jj);
                             }

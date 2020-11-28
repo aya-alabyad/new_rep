@@ -10,6 +10,8 @@ public class Candidate {
     public String experienceYears;
     public List<Diploma> diplomaList;
 
+    public String diplomaType;
+
     public Candidate(int id, String full_name, String phone, String experienceYears, String email, List<Diploma> diplomaList) {
         this.id = id;
         this.full_name = full_name;
@@ -17,5 +19,13 @@ public class Candidate {
         this.email = email;
         this.experienceYears = experienceYears;
         this.diplomaList = diplomaList;
+    }
+
+    public Candidate(int id, String full_name, String experienceYears, String email, String diplomaType) {
+        this.id = id;
+        this.full_name = full_name;
+        this.email = email;
+        this.experienceYears = experienceYears;
+        this.diplomaType = diplomaType;
     }
 }

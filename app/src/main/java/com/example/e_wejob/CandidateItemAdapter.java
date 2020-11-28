@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_wejob.models.Candidate;
-import com.example.e_wejob.models.Diploma;
-import com.example.e_wejob.models.Job;
 
 import java.util.List;
 
@@ -37,14 +35,14 @@ public class CandidateItemAdapter extends RecyclerView.Adapter<CandidateItemAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         Candidate c = mData.get(position);
         holder.fullName.setText(c.full_name);
-        String diplomas = "";
-        for (int i = 0; i < c.diplomaList.size(); i++) {
+        String diplomas = c.diplomaType;
+       /* for (int i = 0; i < c.diplomaList.size(); i++) {
             Diploma d = c.diplomaList.get(i);
             diplomas += d.diplomaType + " " + d.diplomaTitle + "\n";
-        }
+        }*/
 
         holder.diploma.setText(diplomas);
-        holder.experienceYears.setText(c.experienceYears+"");
+        holder.experienceYears.setText(c.experienceYears + "");
         holder.phone.setText(c.phone);
 
     }
